@@ -1,0 +1,61 @@
+//from Dockerfile
+docker build - node .
+docker run -it -d node
+
+docker run -it -p 3000:3000 node
+// docker-compose.yml
+volumes - loczy lokalny folder z contenerem...
+
+docker-compose build
+docker-compose run docker-api
+docker-compose up --build        zamiast build -  uruchamia wszysktie seerwisy w docker-compose.yml
+
+//run
+docker-compose up -d
+docker-compose exec docker-api bash
+
+//polaczenie z posgres
+
+psql postgres://maniek:secret@localhost:5432/smart-brain-docker    --- z local hosta
+psql postgres://maniek:secret@postgres:5432/smart-brain-docker     --- z contenera
+
+==========================================
+REDIS COMMANDS
+============================================
+SET name 'maniek'
+GET name
+EXISTS name
+SET session 'maniek'
+EXPIRE session 10
+SET counter 10
+INCRBY counter 1
+GET counter
+
+MSET a 2 b 5
+MGET a b 
+
+HMSET user id 5 name "maniek"
+HMGET user id
+
+HMGETALL user   ....
+//linked list
+LPUSH  ourlist 10
+LPUSH ourlist "hello"
+LRANGE ourlist 0 1
+
+RPOP ourlist 0 1
+
+//sets sorted set
+
+SADD ourset 1 2 4 5 6
+SMEMBERS ourset
+SISMEMBER ourset  10 /// 0 as folse
+
+//sorted
+ZADD team 50 "something"
+ZADD team 40 "anything"
+
+ZRANGE team 0 1 // sortuje any potem some
+ZRANK team "anything"
+
+===========================

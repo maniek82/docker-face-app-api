@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  docker-api:
+    container_name: backend
+    build: ./
+    command: npm run start-dev
+    working_dir: /usr/src/smart-brain-docker
+    depends_on:
+     - postgres
+     - redis
+    environment:
+      POSTGRES_URI: postgres://maniek:secret@postgres:5432/smart-brain-docker
+      REDIS_URI: redis://redis:6379
+    # links:     w nowej wersji nie trzeba tego
+    # - postgres
+    ports:
+      - "3000:3000"
+    #mapujemy host directory to enable automatic update in container when we change files on host
+    volumes:
+     - ./:/usr/src/smart-brain-docker
+  postgres:
+    environment:
+      POSTGRES_USER: maniek
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:latest
+    ports: 
+      - "6379:6379"
+
+    
+
